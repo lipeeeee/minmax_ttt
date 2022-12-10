@@ -18,7 +18,7 @@ public class Window {
         window.setTitle(this.title);
         window.getContentPane().setBackground(this.backgroundColor);
         window.setResizable(this.resizable);
-        window.setLocationRelativeTo(null);
+        window.setLocationRelativeTo((Component)null);
         window.setVisible(true);
 
         // close on application close
