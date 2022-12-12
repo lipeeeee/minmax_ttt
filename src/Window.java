@@ -5,7 +5,7 @@ import javax.swing.*;
 public class Window extends JPanel {
     private JFrame window;
     private final int WIDTH = 700;
-    private final int HEIGHT = 500;
+    private final int HEIGHT = 600;
     private final int CELL_SIZE = this.HEIGHT / 3;
     private final String title = "MinMax - TicTacToe";
     private final boolean resizable = false;
@@ -29,10 +29,12 @@ public class Window extends JPanel {
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    // this should only be called when AI/User input for optimization purposes
+    // in an ideal world this should only be called
+    // when AI/User input for optimization purposes
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawGrid(g);
+        drawButtons(g);
     }
 
     // draws tic-tac-toe 3x3 grid
@@ -40,13 +42,18 @@ public class Window extends JPanel {
         Graphics2D g2d = (Graphics2D)g;
 
         for (int i = 0; i < 3; i++){
-            // Vertical
+            // vertical
             g2d.draw(new Line2D.Float(i * this.CELL_SIZE, 0, i * this.CELL_SIZE, 3 * this.CELL_SIZE));
-            // Horizontal
+
+            // horizontal
             g2d.draw(new Line2D.Float(0, i * this.CELL_SIZE, 3 * this.CELL_SIZE, i * this.CELL_SIZE));
         }
-        // draw last vertical line to allow WIDTH resizing and maintain a clean UI
+        // draw another vertical line to allow WIDTH resizing and maintain a clean UI
         g2d.draw(new Line2D.Float(3 * this.CELL_SIZE, 0, 3 * this.CELL_SIZE, 3 * this.CELL_SIZE));
+    }
+
+    private void drawButtons(Graphics g) {
+
     }
 
     public int getHEIGHT() {
