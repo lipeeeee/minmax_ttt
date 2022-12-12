@@ -29,7 +29,7 @@ public class Window extends JPanel {
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // putting this here saves an extra call from paintComponent
-        addButtons(this.window.getGraphics());
+        addButtons();
     }
 
     // in an ideal world this should only be called
@@ -54,13 +54,15 @@ public class Window extends JPanel {
         g2d.draw(new Line2D.Float(3 * this.CELL_SIZE, 0, 3 * this.CELL_SIZE, 3 * this.CELL_SIZE));
     }
 
-    private void addButtons(Graphics g) {
-        Graphics2D g2d = (Graphics2D)g;
+    private void addButtons() {
         JButton btn;
 
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
                 btn = new JButton("");
+                btn.setOpaque(false);
+                btn.setContentAreaFilled(false);
+                btn.setBorderPainted(false);
                 btn.setBounds(j * this.CELL_SIZE, i * this.CELL_SIZE, this.CELL_SIZE, this.CELL_SIZE);
                 this.window.add(btn);
             }
