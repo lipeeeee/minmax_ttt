@@ -27,6 +27,9 @@ public class Window extends JPanel {
 
         // close on application close
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // putting this here saves an extra call from paintComponent
+        addButtons(this.window.getGraphics());
     }
 
     // in an ideal world this should only be called
@@ -34,7 +37,6 @@ public class Window extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawGrid(g);
-        drawButtons(g);
     }
 
     // draws tic-tac-toe 3x3 grid
@@ -52,8 +54,21 @@ public class Window extends JPanel {
         g2d.draw(new Line2D.Float(3 * this.CELL_SIZE, 0, 3 * this.CELL_SIZE, 3 * this.CELL_SIZE));
     }
 
-    private void drawButtons(Graphics g) {
+    private void addButtons(Graphics g) {
+        Graphics2D g2d = (Graphics2D)g;
+        JButton btn;
 
+        for (int i = 0; i < 3; i++){
+            for (int j = 0; j < 3; j++){
+                btn = new JButton("");
+                btn.setBounds(j * this.CELL_SIZE, i * this.CELL_SIZE, this.CELL_SIZE, this.CELL_SIZE);
+                this.window.add(btn);
+            }
+        }
+    }
+
+    public int getCELL_SIZE() {
+        return CELL_SIZE;
     }
 
     public int getHEIGHT() {
