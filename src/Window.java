@@ -4,8 +4,9 @@ import javax.swing.*;
 
 public class Window extends JPanel {
     private JFrame window;
-    private final int WIDTH = 500;
+    private final int WIDTH = 700;
     private final int HEIGHT = 500;
+    private final int CELL_SIZE = this.HEIGHT / 3;
     private final String title = "MinMax - TicTacToe";
     private final boolean resizable = false;
     private final Color backgroundColor = Color.BLACK;
@@ -26,24 +27,26 @@ public class Window extends JPanel {
 
         // close on application close
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // optimization: drawing grid here saves a call to paintComponent()
-        drawGrid(this.window.getGraphics());
     }
 
     // this should only be called when AI/User input for optimization purposes
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        drawGrid(g);
     }
 
     // draws tic-tac-toe 3x3 grid
     private void drawGrid(Graphics g){
-        Graphics2D graphics2D = (Graphics2D) g;
-        System.out.println("grid");
-        for (int i = 0; i < 10; i++){
-            Line2D line = new Line2D.Float(i * 100, i * 100, i * 200, i * 200);
-            graphics2D.draw(line);
+        Graphics2D g2d = (Graphics2D)g;
+
+        for (int i = 0; i < 3; i++){
+            // Vertical
+            g2d.draw(new Line2D.Float(i * this.CELL_SIZE, 0, i * this.CELL_SIZE, 3 * this.CELL_SIZE));
+            // Horizontal
+            g2d.draw(new Line2D.Float(0, i * this.CELL_SIZE, 3 * this.CELL_SIZE, i * this.CELL_SIZE));
         }
+        // draw last vertical line to allow WIDTH resizing and maintain a clean UI
+        g2d.draw(new Line2D.Float(3 * this.CELL_SIZE, 0, 3 * this.CELL_SIZE, 3 * this.CELL_SIZE));
     }
 
     public int getHEIGHT() {
