@@ -64,6 +64,7 @@ public class Window extends JPanel implements ActionListener  {
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
                 btn = new JButton("");
+                btn.setName(i + "," + j); // easier btn handling
                 btn.setOpaque(false);
                 btn.setContentAreaFilled(false);
                 btn.setBorderPainted(false);
@@ -78,7 +79,10 @@ public class Window extends JPanel implements ActionListener  {
 
     @Override
     public void actionPerformed(ActionEvent e){
-        System.out.println("ola");
+        JButton btn = (JButton) e.getSource();
+        String[] xy = btn.getName().split(",");
+        // send action to game given the button's xy coordinates
+        ticTacToe.sendAction(Integer.parseInt(xy[0]), Integer.parseInt(xy[1]));
     }
 
     public int getCELL_SIZE() {
