@@ -12,8 +12,10 @@ public class Window extends JPanel implements ActionListener  {
     private final String title = "MinMax - TicTacToe";
     private final boolean resizable = false;
     private final Color backgroundColor = Color.BLACK;
+    private TicTacToe ticTacToe;
 
     public Window() {
+        this.ticTacToe = new TicTacToe();
         createWindow();
     }
 
