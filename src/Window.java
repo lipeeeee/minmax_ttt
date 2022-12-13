@@ -1,8 +1,10 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.Line2D;
 import javax.swing.*;
 
-public class Window extends JPanel {
+public class Window extends JPanel implements ActionListener  {
     private JFrame window;
     private final int WIDTH = 700;
     private final int HEIGHT = 600;
@@ -64,9 +66,17 @@ public class Window extends JPanel {
                 btn.setContentAreaFilled(false);
                 btn.setBorderPainted(false);
                 btn.setBounds(j * this.CELL_SIZE, i * this.CELL_SIZE, this.CELL_SIZE, this.CELL_SIZE);
+                // gets actionPerformed that we overwrote in this(Window) class
+                btn.addActionListener(this);
+
                 this.window.add(btn);
             }
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e){
+        System.out.println("ola");
     }
 
     public int getCELL_SIZE() {
