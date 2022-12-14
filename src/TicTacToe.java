@@ -11,9 +11,10 @@ public class TicTacToe {
         this.gameState = new int[3][3];
     }
 
-    // inputs action into board
-    public void sendAction(int x, int y){
+    // inputs action into board and returns its board value
+    public String sendAction(int x, int y){
         setBoardValue(x, y);
+        return (this.gameState[x][y] == 1)? "X" : "O";
     }
 
     // returns -1, 0 or 1 for a given board value

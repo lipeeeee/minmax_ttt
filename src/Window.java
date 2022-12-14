@@ -2,7 +2,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Line2D;
-import java.util.Arrays;
 import javax.swing.*;
 
 public class Window extends JPanel implements ActionListener  {
@@ -11,7 +10,7 @@ public class Window extends JPanel implements ActionListener  {
     private final int HEIGHT = 600;
     private final int CELL_SIZE = this.HEIGHT / 3;
     private final String title = "MinMax - TicTacToe";
-    private final boolean resizable = true;
+    private final boolean resizable = false;
     private final Color backgroundColor = Color.BLACK;
     private TicTacToe ticTacToe;
 
@@ -21,6 +20,10 @@ public class Window extends JPanel implements ActionListener  {
     }
 
     private void createWindow(){
+        setLayout(null);
+        setFocusable(true);
+        setFocusTraversalKeysEnabled(false);
+
         this.window = new JFrame();
         this.window.setTitle(this.title);
         this.window.setSize(this.WIDTH, this.HEIGHT);
@@ -33,8 +36,11 @@ public class Window extends JPanel implements ActionListener  {
         // close on application close
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // putting this here saves an extra call from paintComponent
+        // putting this here saves an extra call to paintComponent
         addButtons();
+
+        this.revalidate();
+        this.repaint();
     }
 
     // in an ideal world this should only be called
@@ -61,15 +67,20 @@ public class Window extends JPanel implements ActionListener  {
 
     private void addButtons() {
         JButton btn;
-        System.out.println("addButtons()");
+        Font btnFont = new Font("Arial Black", Font.BOLD, 36);
+
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
                 btn = new JButton("");
-                btn.setName(i + "," + j); // easier btn handling
-                /*btn.setOpaque(false);
-                btn.setContentAreaFilled(false);
-                btn.setBorderPainted(false);*/
+                btn.setName(i + "," + j);
                 btn.setBounds(j * this.CELL_SIZE, i * this.CELL_SIZE, this.CELL_SIZE, this.CELL_SIZE);
+                btn.setFont(btnFont);
+                btn.setForeground(Color.WHITE);
+                btn.setOpaque(false);
+                btn.setContentAreaFilled(false);
+                btn.setBorderPainted(false);
+                btn.setFocusable(false);
+
                 // gets actionPerformed that we overwrote in this(Window) class
                 btn.addActionListener(this);
 
@@ -82,11 +93,8 @@ public class Window extends JPanel implements ActionListener  {
     public void actionPerformed(ActionEvent e){
         JButton jb = (JButton) e.getSource();
         String[] xy = jb.getName().split(",");
-        System.out.println(Arrays.toString(xy));
-        ticTacToe.sendAction(Integer.parseInt(xy[0]), Integer.parseInt(xy[1]));
-
-        jb.setText("ola");
-        System.out.println(jb.getBounds());
+        String boardValue = ticTacToe.sendAction(Integer.parseInt(xy[0]), Integer.parseInt(xy[1]));
+        jb.setText(boardValue);
     }
 
     public int getCELL_SIZE() {
