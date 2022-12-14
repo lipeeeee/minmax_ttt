@@ -91,10 +91,16 @@ public class Window extends JPanel implements ActionListener  {
 
     @Override
     public void actionPerformed(ActionEvent e){
+        int boardValue;
         JButton jb = (JButton) e.getSource();
+
+        // send action to game given the coordinates of a button clicked
         String[] xy = jb.getName().split(",");
-        String boardValue = ticTacToe.sendAction(Integer.parseInt(xy[0]), Integer.parseInt(xy[1]));
-        jb.setText(boardValue);
+        ticTacToe.sendAction(Integer.parseInt(xy[0]), Integer.parseInt(xy[1]));
+
+        // update UI
+        boardValue = ticTacToe.getBoardValue(Integer.parseInt(xy[0]), Integer.parseInt(xy[1]));
+        jb.setText((boardValue == 1)? "X": "O"); // 1 == X; -1 == Y; 0 == Empty
     }
 
     public int getCELL_SIZE() {

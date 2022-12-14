@@ -12,13 +12,12 @@ public class TicTacToe {
     }
 
     // inputs action into board and returns its board value
-    public String sendAction(int x, int y){
+    public void sendAction(int x, int y){
         setBoardValue(x, y);
-        return (this.gameState[x][y] == 1)? "X" : "O";
     }
 
     // returns -1, 0 or 1 for a given board value
-    private int getBoardValue(int x, int y){
+    public int getBoardValue(int x, int y){
         return this.gameState[x][y];
     }
 
