@@ -11,8 +11,24 @@ public class TicTacToe {
         this.gameState = new int[3][3];
     }
 
+    // inputs action into board
     public void sendAction(int x, int y){
-        System.out.println(x + ", " + y);
+        setBoardValue(x, y);
+    }
+
+    // returns -1, 0 or 1 for a given board value
+    private int getBoardValue(int x, int y){
+        return this.gameState[x][y];
+    }
+
+    private void setBoardValue(int x, int y){
+        int bv = getBoardValue(x, y);
+
+        // if empty
+        if (bv == 0){
+            this.gameState[x][y] = (this.XTurn)? 1 : -1;
+            this.XTurn = !this.XTurn;
+        }
     }
 
     public int[][] getGameState() {
